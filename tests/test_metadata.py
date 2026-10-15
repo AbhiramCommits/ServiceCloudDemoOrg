@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
@@ -76,6 +77,23 @@ def test_discovery_brief_names_all_five_pains():
     text = (DOCS / "discovery-brief.md").read_text(encoding="utf-8")
     for pain in PAIN_IDS:
         assert f"**{pain}**" in text, f"{pain} missing from the discovery brief"
+
+
+def test_traceability_has_no_remaining_todos():
+    text = (DOCS / "requirements-traceability.md").read_text(encoding="utf-8")
+    assert "TODO" not in text, "requirements-traceability.md still contains TODO placeholders"
+
+
+def test_documented_numbers_trace_to_simulation_output():
+    payload = json.loads((ROOT / "results" / "metrics.json").read_text(encoding="utf-8"))
+    documented = "\n".join(
+        (DOCS / name).read_text(encoding="utf-8")
+        for name in ("requirements-traceability.md", "value-model.md", "slide-outline.md")
+    )
+    for key, entry in payload["metrics"].items():
+        for side in ("baseline", "salesforce"):
+            rendered = f"{entry[side]:,.2f}"
+            assert rendered in documented, f"{key}.{side} = {rendered} is not traceable to docs/"
 
 
 def test_apex_and_python_sla_matrix_agree():
