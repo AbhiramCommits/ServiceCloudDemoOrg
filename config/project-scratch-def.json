@@ -1,0 +1,19 @@
+{
+  "orgName": "Northwind Outfitters Demo",
+  "edition": "Developer",
+  "features": ["ServiceCloud", "Flow"],
+  "settings": {
+    "caseSettings": {
+      "enableCaseFeed": true,
+      "enableEmailToCase": true
+    },
+    "lightningExperienceSettings": {
+      "enableS1DesktopEnabled": true
+    },
+    "securitySettings": {
+      "sessionSettings": {
+        "forceRelogin": false
+      }
+    }
+  }
+}

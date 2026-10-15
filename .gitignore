@@ -1,0 +1,24 @@
+# Salesforce DX
+.sfdx/
+.sf/
+.sfdx-tooling/
+deploy-options.json
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Generated artifacts (regenerate with `make all`)
+results/
