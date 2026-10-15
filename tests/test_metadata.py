@@ -89,7 +89,7 @@ def test_documented_numbers_trace_to_simulation_output():
     documented = "\n".join(
         (DOCS / name).read_text(encoding="utf-8")
         for name in ("requirements-traceability.md", "value-model.md", "slide-outline.md")
-    )
+    ) + (ROOT / "README.md").read_text(encoding="utf-8")
     for key, entry in payload["metrics"].items():
         for side in ("baseline", "salesforce"):
             rendered = f"{entry[side]:,.2f}"
