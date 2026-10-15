@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Request_Number__c</fullName>
+    <label>Request Number</label>
+    <description>Human-readable auto-number for the request (P1: one durable identifier per request so duplicate work can be spotted).</description>
+    <type>AutoNumber</type>
+    <displayFormat>SR-{00000}</displayFormat>
+    <startingNumber>10000</startingNumber>
+</CustomField>

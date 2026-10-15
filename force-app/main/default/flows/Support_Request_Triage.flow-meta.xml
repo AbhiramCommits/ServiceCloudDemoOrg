@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>61.0</apiVersion>
+    <processType>AutoLaunchedFlow</processType>
+    <label>Support Request Triage</label>
+    <description>Record-triggered before-save triage for Support_Request__c. Computes Priority_Score__c from customer lifetime value (Order_Record__c.Lifetime_Value__c), intake channel and topic; maps the score to the priority band and stamps SLA_Due__c from the priority-based SLA matrix; relates the request to the customer's order; sets Status__c = Triaged. Addresses P2 (no priority or SLA routing) and P1 (single record with order context). Scoring constants mirror PriorityRouter.cls and sim/config.py.</description>
+    <interviewLabel>Support Request Triage-{!$Flow.CurrentDateTime}</interviewLabel>
+    <start>
+        <object>Support_Request__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+        <connector>
+            <targetReference>Get_Lifetime_Value</targetReference>
+        </connector>
+    </start>
+    <formulas>
+        <name>formLtvPoints</name>
+        <dataType>Number</dataType>
+        <scale>0</scale>
+        <expression>IF(ISBLANK({!Get_Lifetime_Value.Lifetime_Value__c}), 0, IF({!Get_Lifetime_Value.Lifetime_Value__c} &gt;= 2000, 40, IF({!Get_Lifetime_Value.Lifetime_Value__c} &gt;= 1000, 30, IF({!Get_Lifetime_Value.Lifetime_Value__c} &gt;= 500, 20, IF({!Get_Lifetime_Value.Lifetime_Value__c} &gt;= 100, 10, 0)))))</expression>
+    </formulas>
+    <formulas>
+        <name>formChannelPoints</name>
+        <dataType>Number</dataType>
+        <scale>0</scale>
+        <expression>IF({!$Record.Channel__c} = "Phone", 20, IF({!$Record.Channel__c} = "Chat", 15, IF({!$Record.Channel__c} = "Web", 10, IF({!$Record.Channel__c} = "Email", 5, 0))))</expression>
+    </formulas>
+    <formulas>
+        <name>formTopicPoints</name>
+        <dataType>Number</dataType>
+        <scale>0</scale>
+        <expression>IF({!$Record.Topic__c} = "Warranty", 25, IF({!$Record.Topic__c} = "Return", 20, IF({!$Record.Topic__c} = "Order Status", 15, IF({!$Record.Topic__c} = "Shipping", 10, IF({!$Record.Topic__c} = "Other", 8, IF({!$Record.Topic__c} = "Sizing", 5, 0))))))</expression>
+    </formulas>
+    <formulas>
+        <name>formPriorityScore</name>
+        <dataType>Number</dataType>
+        <scale>0</scale>
+        <expression>{!formLtvPoints} + {!formChannelPoints} + {!formTopicPoints}</expression>
+    </formulas>
+    <formulas>
+        <name>formSlaMinutes</name>
+        <dataType>Number</dataType>
+        <scale>0</scale>
+        <expression>IF({!formPriorityScore} &gt;= 70, 30, IF({!formPriorityScore} &gt;= 50, 120, IF({!formPriorityScore} &gt;= 30, 480, IF({!formPriorityScore} &gt;= 15, 1440, 2880))))</expression>
+    </formulas>
+    <formulas>
+        <name>formPriorityBand</name>
+        <dataType>String</dataType>
+        <expression>IF({!formPriorityScore} &gt;= 70, "Critical", IF({!formPriorityScore} &gt;= 50, "High", IF({!formPriorityScore} &gt;= 30, "Medium", IF({!formPriorityScore} &gt;= 15, "Low", "Minimal"))))</expression>
+    </formulas>
+    <formulas>
+        <name>formSlaDue</name>
+        <dataType>DateTime</dataType>
+        <expression>{!$Flow.CurrentDateTime} + ({!formSlaMinutes} / 1440)</expression>
+    </formulas>
+    <recordLookups>
+        <name>Get_Lifetime_Value</name>
+        <label>Get Lifetime Value</label>
+        <object>Order_Record__c</object>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Customer_Email__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Customer_Email__c</elementReference>
+            </value>
+        </filters>
+        <sortField>Lifetime_Value__c</sortField>
+        <sortOrder>Desc</sortOrder>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+        <connector>
+            <targetReference>Set_Triage_Fields</targetReference>
+        </connector>
+    </recordLookups>
+    <assignments>
+        <name>Set_Triage_Fields</name>
+        <label>Set Triage Fields</label>
+        <assignmentItems>
+            <assignToReference>$Record.Priority_Score__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>formPriorityScore</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Priority__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>formPriorityBand</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.SLA_Due__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>formSlaDue</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Related_Order__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Get_Lifetime_Value.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Triaged</stringValue>
+            </value>
+        </assignmentItems>
+    </assignments>
+    <status>Active</status>
+</Flow>

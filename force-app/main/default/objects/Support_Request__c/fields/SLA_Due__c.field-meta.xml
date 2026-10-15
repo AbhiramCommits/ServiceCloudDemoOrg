@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SLA_Due__c</fullName>
+    <label>SLA Due</label>
+    <description>Timestamp by which a first response is contractually due, stamped from the priority-based SLA matrix (P2). Set by Support_Request_Triage.</description>
+    <type>DateTime</type>
+    <required>false</required>
+</CustomField>

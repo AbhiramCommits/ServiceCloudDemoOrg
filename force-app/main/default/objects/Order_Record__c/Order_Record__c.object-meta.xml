@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Order Record</label>
+    <pluralLabel>Order Records</pluralLabel>
+    <description>Order history used to compute customer lifetime value for priority scoring (P2) and to evaluate warranty/entitlement eligibility (P5). Mirrors the eCommerce order data referenced during discovery.</description>
+    <nameField>
+        <label>Order Record Name</label>
+        <type>Text</type>
+    </nameField>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <sharingModel>ReadWrite</sharingModel>
+    <enableActivities>false</enableActivities>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableHistory>false</enableHistory>
+    <enableFeeds>false</enableFeeds>
+    <enableBulkApi>true</enableBulkApi>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>false</enableStreamingApi>
+</CustomObject>

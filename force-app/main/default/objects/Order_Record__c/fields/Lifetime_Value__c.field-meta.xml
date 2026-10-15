@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Lifetime_Value__c</fullName>
+    <label>Lifetime Value</label>
+    <description>Rolled-up lifetime value of the customer in USD; primary input to the priority score's value component (P2).</description>
+    <type>Currency</type>
+    <precision>12</precision>
+    <scale>2</scale>
+    <required>false</required>
+</CustomField>

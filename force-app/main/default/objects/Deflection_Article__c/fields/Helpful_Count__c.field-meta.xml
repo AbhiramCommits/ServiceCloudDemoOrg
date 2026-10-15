@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Helpful_Count__c</fullName>
+    <label>Helpful Count</label>
+    <description>Number of "this helped" votes, a quality signal for the deflection content (P3, P4).</description>
+    <type>Number</type>
+    <precision>9</precision>
+    <scale>0</scale>
+    <required>false</required>
+    <defaultValue>0</defaultValue>
+</CustomField>

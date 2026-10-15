@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deflected__c</fullName>
+    <label>Deflected</label>
+    <description>True when the request was resolved by self-service / the deflection assistant without a human agent touch (P3, metric M2).</description>
+    <type>Checkbox</type>
+    <defaultValue>false</defaultValue>
+</CustomField>

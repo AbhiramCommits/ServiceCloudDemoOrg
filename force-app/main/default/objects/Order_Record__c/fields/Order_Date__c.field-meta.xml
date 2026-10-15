@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Order_Date__c</fullName>
+    <label>Order Date</label>
+    <description>Date the order was placed; the anchor for warranty eligibility calculations (P5).</description>
+    <type>Date</type>
+    <required>true</required>
+</CustomField>

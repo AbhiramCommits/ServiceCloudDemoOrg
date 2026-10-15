@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Title__c</fullName>
+    <label>Title</label>
+    <description>Customer-facing article title surfaced by the deflection assistant (P3).</description>
+    <type>Text</type>
+    <required>true</required>
+    <length>255</length>
+</CustomField>

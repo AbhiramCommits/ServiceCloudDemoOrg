@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomObject xmlns="http://soap.sforce.com/2006/04/metadata">
+    <label>Deflection Article</label>
+    <pluralLabel>Deflection Articles</pluralLabel>
+    <description>Self-service knowledge articles backing the deflection assistant for the six recurring topics (P3). Rendered in the deflection region of the console record page.</description>
+    <nameField>
+        <label>Deflection Article Name</label>
+        <type>Text</type>
+    </nameField>
+    <deploymentStatus>Deployed</deploymentStatus>
+    <sharingModel>ReadWrite</sharingModel>
+    <enableActivities>false</enableActivities>
+    <enableReports>true</enableReports>
+    <enableSearch>true</enableSearch>
+    <enableHistory>false</enableHistory>
+    <enableFeeds>false</enableFeeds>
+    <enableBulkApi>true</enableBulkApi>
+    <enableSharing>true</enableSharing>
+    <enableStreamingApi>false</enableStreamingApi>
+</CustomObject>

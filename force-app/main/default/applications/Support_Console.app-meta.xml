@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomApplication xmlns="http://soap.sforce.com/2006/04/metadata">
+    <brand>
+        <headerColor>#1B5E3A</headerColor>
+        <logo>northwind_logo</logo>
+        <logoVersion>1</logoVersion>
+        <shouldOverrideOrgTheme>false</shouldOverrideOrgTheme>
+    </brand>
+    <description>Support Console Lightning app. One place for Support Requests (the single case record, P1), Orders (warranty/entitlement context, P5), Deflection Articles (self-service content, P3) and a dashboard tab for leadership (P4). Replaces the shared inbox plus spreadsheet.</description>
+    <formFactors>Large</formFactors>
+    <isNavAutoTempTabsDisabled>false</isNavAutoTempTabsDisabled>
+    <isNavPersonalizationDisabled>false</isNavPersonalizationDisabled>
+    <label>Support Console</label>
+    <navType>Standard</navType>
+    <tabs>standard-home</tabs>
+    <tabs>Support_Request__c</tabs>
+    <tabs>Order_Record__c</tabs>
+    <tabs>Deflection_Article__c</tabs>
+    <tabs>standard-dashboard</tabs>
+    <uiType>Lightning</uiType>
+</CustomApplication>
