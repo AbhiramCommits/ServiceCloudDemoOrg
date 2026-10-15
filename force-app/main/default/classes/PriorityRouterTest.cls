@@ -30,12 +30,12 @@ private class PriorityRouterTest {
 
     @IsTest
     static void slaMatrixIsBoundedAndOrdered() {
-        System.assertEquals(2880, PriorityRouter.slaMinutesForScore(0), 'Lowest band allows 48h');
-        System.assertEquals(1440, PriorityRouter.slaMinutesForScore(15), 'Low band begins at 15');
-        System.assertEquals(480, PriorityRouter.slaMinutesForScore(30), 'Medium band begins at 30');
-        System.assertEquals(120, PriorityRouter.slaMinutesForScore(50), 'High band begins at 50');
-        System.assertEquals(30, PriorityRouter.slaMinutesForScore(70), 'Critical band begins at 70');
-        System.assertEquals(30, PriorityRouter.slaMinutesForScore(999), 'Scores above the top stay in the top band');
+        System.assertEquals(1440, PriorityRouter.slaMinutesForScore(0), 'Lowest band allows 24h');
+        System.assertEquals(480, PriorityRouter.slaMinutesForScore(15), 'Low band begins at 15');
+        System.assertEquals(180, PriorityRouter.slaMinutesForScore(30), 'Medium band begins at 30');
+        System.assertEquals(60, PriorityRouter.slaMinutesForScore(50), 'High band begins at 50');
+        System.assertEquals(15, PriorityRouter.slaMinutesForScore(70), 'Critical band begins at 70');
+        System.assertEquals(15, PriorityRouter.slaMinutesForScore(999), 'Scores above the top stay in the top band');
 
         // The SLA gets stricter (shorter) as the score rises.
         System.assert(
@@ -47,7 +47,7 @@ private class PriorityRouterTest {
         System.assertEquals('Minimal', PriorityRouter.priorityBandForScore(0), 'Zero score maps to Minimal');
 
         DateTime start = DateTime.newInstance(2026, 1, 1, 9, 0, 0);
-        System.assertEquals(start.addMinutes(30), PriorityRouter.slaDueAt(start, 85), 'SLA due honors the matrix');
+        System.assertEquals(start.addMinutes(15), PriorityRouter.slaDueAt(start, 85), 'SLA due honors the matrix');
     }
 
     @IsTest

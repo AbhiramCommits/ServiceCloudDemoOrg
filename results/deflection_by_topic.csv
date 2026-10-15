@@ -1,0 +1,8 @@
+topic,total_requests,deflected_requests,deflection_rate_pct
+Other,1575,0,0.0
+Order Status,589,497,84.38
+Return,474,379,79.96
+Shipping,404,340,84.16
+Sizing,345,268,77.68
+Store Hours,308,284,92.21
+Warranty,305,230,75.41

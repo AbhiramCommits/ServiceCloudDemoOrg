@@ -1,0 +1,138 @@
+{
+  "generated_by": "sim/run_simulation.py",
+  "seed": 42,
+  "dataset": {
+    "orders": 3000,
+    "requests": 4000,
+    "agents": 12,
+    "working_days": 21
+  },
+  "analysis_window": {
+    "start": "2026-02-01T00:00:00",
+    "days": 30
+  },
+  "metrics": {
+    "first_response_minutes_mean": {
+      "label": "First response time (mean)",
+      "unit": "minutes",
+      "direction": "lower",
+      "baseline": 575.83,
+      "salesforce": 89.0,
+      "delta": -486.83,
+      "pct_delta": -84.54
+    },
+    "first_response_minutes_p90": {
+      "label": "First response time (p90)",
+      "unit": "minutes",
+      "direction": "lower",
+      "baseline": 1293.65,
+      "salesforce": 241.66,
+      "delta": -1051.99,
+      "pct_delta": -81.32
+    },
+    "sla_compliance_pct": {
+      "label": "SLA compliance",
+      "unit": "percent",
+      "direction": "higher",
+      "baseline": 43.15,
+      "salesforce": 96.55,
+      "delta": 53.4,
+      "pct_delta": 123.75
+    },
+    "deflection_rate_pct": {
+      "label": "Deflection rate",
+      "unit": "percent",
+      "direction": "higher",
+      "baseline": 0.0,
+      "salesforce": 49.95,
+      "delta": 49.95,
+      "pct_delta": 0.0
+    },
+    "cases_per_agent_per_day": {
+      "label": "Human-handled cases per agent per day",
+      "unit": "cases",
+      "direction": "lower",
+      "baseline": 15.87,
+      "salesforce": 7.94,
+      "delta": -7.93,
+      "pct_delta": -49.97
+    },
+    "backlog_age_hours": {
+      "label": "Backlog age",
+      "unit": "hours",
+      "direction": "lower",
+      "baseline": 33.81,
+      "salesforce": 3.35,
+      "delta": -30.46,
+      "pct_delta": -90.09
+    }
+  },
+  "diagnostics": {
+    "agent_load_gini": {
+      "baseline": 0.000667,
+      "salesforce": 0.000833
+    },
+    "human_handled_requests": {
+      "baseline": 4000,
+      "salesforce": 2002
+    },
+    "deflected_requests": {
+      "baseline": 0,
+      "salesforce": 1998
+    },
+    "sla_breaches": {
+      "baseline": 2274,
+      "salesforce": 138
+    },
+    "agent_hours_freed_per_month": 518.38,
+    "baseline_handling_minutes_per_human_request": 15.1816
+  },
+  "deflection_by_topic": [
+    {
+      "topic": "Other",
+      "total_requests": 1575,
+      "deflected_requests": 0,
+      "deflection_rate_pct": 0.0
+    },
+    {
+      "topic": "Order Status",
+      "total_requests": 589,
+      "deflected_requests": 497,
+      "deflection_rate_pct": 84.38
+    },
+    {
+      "topic": "Return",
+      "total_requests": 474,
+      "deflected_requests": 379,
+      "deflection_rate_pct": 79.96
+    },
+    {
+      "topic": "Shipping",
+      "total_requests": 404,
+      "deflected_requests": 340,
+      "deflection_rate_pct": 84.16
+    },
+    {
+      "topic": "Sizing",
+      "total_requests": 345,
+      "deflected_requests": 268,
+      "deflection_rate_pct": 77.68
+    },
+    {
+      "topic": "Store Hours",
+      "total_requests": 308,
+      "deflected_requests": 284,
+      "deflection_rate_pct": 92.21
+    },
+    {
+      "topic": "Warranty",
+      "total_requests": 305,
+      "deflected_requests": 230,
+      "deflection_rate_pct": 75.41
+    }
+  ],
+  "assistant": {
+    "source": "provisional (see step 4)",
+    "threshold": null
+  }
+}

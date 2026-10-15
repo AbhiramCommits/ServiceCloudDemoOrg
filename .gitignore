@@ -19,6 +19,3 @@ htmlcov/
 .DS_Store
 .idea/
 .vscode/
-
-# Generated artifacts (regenerate with `make all`)
-results/

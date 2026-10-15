@@ -39,9 +39,10 @@ public with sharing class PriorityRouter {
         'Store Hours' => 0
     };
 
-    /** SLA matrix: score threshold -> minutes allowed for a first response, highest-first. */
+    /** SLA matrix: score threshold -> minutes allowed for a first response, highest-first.
+     *  Tiered targets Northwind agreed to: 15 minutes / 1 hour / 3 hours / 8 hours / 24 hours. */
     public static final List<Integer> SLA_SCORE_THRESHOLDS = new List<Integer>{ 70, 50, 30, 15, 0 };
-    public static final List<Integer> SLA_MINUTES = new List<Integer>{ 30, 120, 480, 1440, 2880 };
+    public static final List<Integer> SLA_MINUTES = new List<Integer>{ 15, 60, 180, 480, 1440 };
     public static final List<String> SLA_BANDS = new List<String>{ 'Critical', 'High', 'Medium', 'Low', 'Minimal' };
 
     /**

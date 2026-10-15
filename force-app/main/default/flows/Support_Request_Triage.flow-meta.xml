@@ -41,7 +41,7 @@
         <name>formSlaMinutes</name>
         <dataType>Number</dataType>
         <scale>0</scale>
-        <expression>IF({!formPriorityScore} &gt;= 70, 30, IF({!formPriorityScore} &gt;= 50, 120, IF({!formPriorityScore} &gt;= 30, 480, IF({!formPriorityScore} &gt;= 15, 1440, 2880))))</expression>
+        <expression>IF({!formPriorityScore} &gt;= 70, 15, IF({!formPriorityScore} &gt;= 50, 60, IF({!formPriorityScore} &gt;= 30, 180, IF({!formPriorityScore} &gt;= 15, 480, 1440))))</expression>
     </formulas>
     <formulas>
         <name>formPriorityBand</name>
