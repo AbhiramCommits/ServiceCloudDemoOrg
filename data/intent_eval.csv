@@ -1,0 +1,141 @@
+utterance,expected_intent
+"Hey, where is my order? It was due last week.",Order Status
+"Can you check the status of my recent order for me?",Order Status
+"My package still has not arrived, any idea where it is?",Order Status
+"I ordered a down jacket ten days ago and have not heard anything.",Order Status
+"The tracking page has said pending for five days now.",Order Status
+"Has my order shipped yet?",Order Status
+"Where is my package? I need it for a trip this weekend.",Order Status
+"Could you tell me when my order will arrive?",Order Status
+"My shipment seems stuck, can you look into it?",Order Status
+"I never received my order, can you track it?",Order Status
+"What is the eta on my order?",Order Status
+"My order number is 44521, can you give me an update?",Order Status
+"I am still waiting on a package I ordered.",Order Status
+"Is my parcel out for delivery yet?",Order Status
+"The carrier has not delivered my order, where is it?",Order Status
+"Can you confirm my order was dispatched?",Order Status
+"My order was supposed to be here two days ago.",Order Status
+"My order was marked shipped but the tracking has not moved.",Order Status
+"Please tell me the delivery status of my order.",Order Status
+"Is there any update on my order? It has been a while.",Order Status
+"I want to return the boots I bought, they do not fit.",Return
+"How do I send back an item for a refund?",Return
+"I need to start a return for my last order.",Return
+"Can I exchange this jacket for a different color?",Return
+"I would like my money back for the tent I ordered.",Return
+"What is your return policy?",Return
+"I need a return label for a jacket that is too small.",Return
+"Can I return an item I bought online to a store?",Return
+"I want to send back these hiking pants.",Return
+"How long do refunds take to process?",Return
+"I would like to exchange the sleeping bag for a larger one.",Return
+"Where do I print my return label?",Return
+"I am returning a shirt that arrived damaged, can I get a refund?",Return
+"Please start a return for order 51233.",Return
+"Can I get my money back on this purchase?",Return
+"I changed my mind and want to return the stove.",Return
+"How do I initiate a return?",Return
+"I want a refund for the wrong item you sent.",Return
+"Do you take returns without a receipt?",Return
+"I would like to return this and re-order a different size.",Return
+"My hiking boots split after three months, is that covered by warranty?",Warranty
+"The zipper broke on my jacket, can I get it repaired under warranty?",Warranty
+"Is my tent still under warranty? The pole snapped.",Warranty
+"My backpack strap tore, is this a warranty claim?",Warranty
+"Does the warranty cover a cracked camp stove?",Warranty
+"The sole came off my boots, what is the warranty on footwear?",Warranty
+"The waterproof coating on my jacket failed, is that a warranty issue?",Warranty
+"Is there a warranty on climbing harnesses?",Warranty
+"My headlamp stopped working after a month, is it defective?",Warranty
+"The buckle on my pack broke on the first trip.",Warranty
+"Can I get this repaired under warranty?",Warranty
+"How long is the warranty on a down jacket?",Warranty
+"My boots are faulty, the stitching came apart.",Warranty
+"Does the warranty cover normal wear and tear?",Warranty
+"The tent pole snapped, is that a defect or my fault?",Warranty
+"I want to file a warranty claim for a broken stove.",Warranty
+"My wetsuit seam failed, is that covered under warranty?",Warranty
+"Is the sleeping bag zipper guaranteed?",Warranty
+"My trekking poles are bent, can they be repaired?",Warranty
+"The jacket tore on a branch, is that a warranty issue?",Warranty
+"How long does standard shipping take to Montana?",Shipping
+"What shipping options do you offer for expedited delivery?",Shipping
+"Do you ship to Canada and how much is postage?",Shipping
+"When will my order arrive if I choose express shipping?",Shipping
+"Is free shipping available on large orders?",Shipping
+"How much does it cost to ship to Alaska?",Shipping
+"What is your international shipping policy?",Shipping
+"Do you offer overnight or express shipping?",Shipping
+"How long does delivery usually take?",Shipping
+"Can I upgrade to expedited shipping after ordering?",Shipping
+"Is there free shipping over a certain amount?",Shipping
+"What courier do you use for deliveries?",Shipping
+"Do you ship to PO boxes?",Shipping
+"How much is postage for a large tent?",Shipping
+"What are your shipping costs to Hawaii?",Shipping
+"How many days does standard shipping take?",Shipping
+"Do you offer same-day delivery?",Shipping
+"Can you ship internationally to the UK?",Shipping
+"What shipping methods are available at checkout?",Shipping
+"Is freight available for a bulk order?",Shipping
+"How do your boots run, should I size up?",Sizing
+"What size jacket should I order if I am between medium and large?",Sizing
+"Do you have a sizing chart for the climbing harness?",Sizing
+"Are the pants true to size?",Sizing
+"Can you help me pick the right fit for a sleeping bag?",Sizing
+"Do the trail runners fit narrow or wide?",Sizing
+"What is the inseam on the men's pants?",Sizing
+"I am a size 10 in Nike, what size should I order here?",Sizing
+"Do your jackets run small?",Sizing
+"What size sleeping bag do I need for a six-footer?",Sizing
+"Are your women's sizes the same as men's?",Sizing
+"Can you tell me the waist measurement for size 32?",Sizing
+"How do I measure my foot for boots?",Sizing
+"Should I size up in the down jacket?",Sizing
+"Is the sizing chart accurate for gloves?",Sizing
+"Do the boots fit true to size?",Sizing
+"What is the difference between a medium and a large?",Sizing
+"My usual size is large, will that fit in your jackets?",Sizing
+"How do your climbing shoes fit compared to street shoes?",Sizing
+"Do you offer half sizes in the hiking boots?",Sizing
+"What time do you open on Saturday?",Store Hours
+"Are you open on Sundays?",Store Hours
+"What are the store hours for the Bozeman location?",Store Hours
+"When does the downtown store close today?",Store Hours
+"Do you have a store near Denver and what are its hours?",Store Hours
+"What time do you close on holidays?",Store Hours
+"Are you open on Thanksgiving?",Store Hours
+"What are your holiday hours?",Store Hours
+"Can you give me the address of the Bozeman store?",Store Hours
+"What are your business hours this week?",Store Hours
+"Is the Portland store open on Mondays?",Store Hours
+"When do you open in the morning?",Store Hours
+"Do you have a location in Seattle?",Store Hours
+"What is the closest store to me?",Store Hours
+"How late are you open on Fridays?",Store Hours
+"What are your hours on Sundays?",Store Hours
+"Are all stores open the same hours?",Store Hours
+"Do you have a store locator page?",Store Hours
+"When does the Denver store open?",Store Hours
+"What time is the downtown location open until?",Store Hours
+"I would like to speak to someone about a bulk order for my company.",escalate
+"Do you offer gift cards?",escalate
+"I have a question about my loyalty points.",escalate
+"Can I change the email address on my account?",escalate
+"Do you price match?",escalate
+"I am having trouble logging into my account.",escalate
+"Can you help me with a partnership inquiry?",escalate
+"I need an invoice for my purchase.",escalate
+"My credit card was charged twice, can you fix that?",escalate
+"How do I update my payment method?",escalate
+"Can I cancel my order?",escalate
+"I want to file a complaint about a rude employee.",escalate
+"Do you have any jobs open in your warehouse?",escalate
+"Can you tell me about your sustainability practices?",escalate
+"I would like to apply a discount code that did not work.",escalate
+"Do you offer financing or payment plans?",escalate
+"Do you have an affiliate program?",escalate
+"How do I unsubscribe from your marketing emails?",escalate
+"Can I set up a corporate account?",escalate
+"Please remove my personal data from your systems.",escalate

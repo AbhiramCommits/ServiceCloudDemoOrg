@@ -24,7 +24,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from . import config, metrics, priority_router, warranty
+from . import assistant, config, metrics, priority_router
 
 WARRANTY_TOPICS = {"Warranty", "Return"}
 
@@ -53,22 +53,17 @@ def annotate_triage(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
-def _provisional_deflect(topic: str, rng: np.random.Generator) -> bool:
-    """Provisional deflection decision used until the assistant is wired in (step 4).
+def assistant_decisions(df: pd.DataFrame, order_lookup: dict) -> list[dict]:
+    """Run the deflection assistant over every request (grounded, deterministic, no RNG).
 
-    Replaced by ``sim.assistant.resolve`` so the SALESFORCE deflection rate comes from real
-    assistant decisions rather than a fixed fraction.
+    Grounding uses the request's own timestamp as "today" so order-status and warranty verdicts are
+    historically accurate.
     """
-    probability = {
-        "Order Status": 0.85,
-        "Return": 0.80,
-        "Warranty": 0.75,
-        "Shipping": 0.85,
-        "Sizing": 0.80,
-        "Store Hours": 0.90,
-        "Other": 0.0,
-    }.get(topic, 0.0)
-    return bool(rng.random() < probability)
+    decisions = []
+    for text, email, created in zip(df["request_text"], df["customer_email"], df["created_at"]):
+        as_of = datetime.fromisoformat(str(created)).date()
+        decisions.append(assistant.resolve(text, email, order_lookup, as_of=as_of))
+    return decisions
 
 
 def baseline_scenario(df: pd.DataFrame, rng: np.random.Generator) -> pd.DataFrame:
@@ -99,10 +94,15 @@ def baseline_scenario(df: pd.DataFrame, rng: np.random.Generator) -> pd.DataFram
     return out
 
 
-def salesforce_scenario(df: pd.DataFrame, rng: np.random.Generator) -> pd.DataFrame:
-    """Routed process: priority/SLA triage, assistant deflection, automated warranty check."""
+def salesforce_scenario(df: pd.DataFrame, rng: np.random.Generator, order_lookup: dict) -> pd.DataFrame:
+    """Routed process: priority/SLA triage, assistant deflection, automated warranty check.
+
+    Deflection decisions come from the real assistant (``sim.assistant``), not a fixed fraction, so
+    the reported deflection rate is an emergent property of intent routing.
+    """
     n = len(df)
-    deflected = np.array([_provisional_deflect(t, rng) for t in df["topic"]], dtype=bool)
+    decisions = assistant_decisions(df, order_lookup)
+    deflected = np.array([d["deflected"] for d in decisions], dtype=bool)
 
     frt = np.empty(n)
     # Deflected requests are answered by the assistant almost instantly.
@@ -136,10 +136,11 @@ def salesforce_scenario(df: pd.DataFrame, rng: np.random.Generator) -> pd.DataFr
     out["handling_minutes"] = handle
     out["age_minutes"] = frt + handle + followup
     out["deflected"] = deflected
-    out["agent"] = [
-        assignment.get(rid, "assistant") if not is_deflected else "assistant"
-        for rid, is_deflected in zip(df["request_id"], deflected)
-    ]
+    out["intent"] = [d["intent"] for d in decisions]
+    out["confidence"] = [d["confidence"] for d in decisions]
+    out["action_taken"] = [d["action_taken"] for d in decisions]
+    out["agent"] = ["assistant" if is_deflected else assignment.get(rid, "unassigned")
+                    for rid, is_deflected in zip(df["request_id"], deflected)]
     out["sla_met"] = out["frt_minutes"] <= out["sla_minutes"]
     return out
 
@@ -185,12 +186,14 @@ def deflection_by_topic(df: pd.DataFrame) -> pd.DataFrame:
         .agg(
             total_requests=("request_id", "count"),
             deflected_requests=("deflected", "sum"),
+            avg_confidence=("confidence", "mean"),
         )
         .reset_index()
     )
     grouped["deflection_rate_pct"] = (
         100.0 * grouped["deflected_requests"] / grouped["total_requests"]
     ).round(2)
+    grouped["avg_confidence"] = grouped["avg_confidence"].round(4)
     return grouped.sort_values("total_requests", ascending=False).reset_index(drop=True)
 
 
@@ -225,15 +228,15 @@ def render_markdown(metrics_json: dict, by_topic: pd.DataFrame) -> str:
         f"| SLA breaches | {diag['sla_breaches']['baseline']:,} | {diag['sla_breaches']['salesforce']:,} |",
         f"| Agent-hours freed / month | - | {diag['agent_hours_freed_per_month']:,} |",
         "",
-        "## Deflection by topic (Salesforce scenario)",
+        "## Deflection by topic (Salesforce scenario, from the assistant)",
         "",
-        "| Topic | Requests | Deflected | Deflection % |",
-        "| --- | ---: | ---: | ---: |",
+        "| Topic | Requests | Deflected | Deflection % | Avg confidence |",
+        "| --- | ---: | ---: | ---: | ---: |",
     ]
     for row in by_topic.itertuples(index=False):
         lines.append(
             f"| {row.topic} | {int(row.total_requests):,} | {int(row.deflected_requests):,} | "
-            f"{row.deflection_rate_pct:.2f}% |"
+            f"{row.deflection_rate_pct:.2f}% | {row.avg_confidence:.3f} |"
         )
     lines.append("")
     return "\n".join(lines)
@@ -249,9 +252,10 @@ def main() -> None:
     out_dir.mkdir(parents=True, exist_ok=True)
 
     df = annotate_triage(load_requests(Path(args.data)))
+    order_lookup = assistant.load_order_lookup(Path(args.data) / "orders.csv")
 
     baseline = baseline_scenario(df, np.random.default_rng(config.SEED + 1))
-    salesforce = salesforce_scenario(df, np.random.default_rng(config.SEED + 2))
+    salesforce = salesforce_scenario(df, np.random.default_rng(config.SEED + 2), order_lookup)
 
     base_summary = summarize(baseline)
     sf_summary = summarize(salesforce)
@@ -321,7 +325,11 @@ def main() -> None:
             "baseline_handling_minutes_per_human_request": round(float(baseline_handle.mean()), 4),
         },
         "deflection_by_topic": deflection_by_topic(salesforce).to_dict(orient="records"),
-        "assistant": {"source": "provisional (see step 4)", "threshold": None},
+        "assistant": {
+            "source": "sim/assistant.py (intent router over the six P3 topics)",
+            "threshold": assistant.DEFAULT_THRESHOLD,
+            "deflection_rate_pct": sf_summary["deflection_rate_pct"],
+        },
     }
 
     (out_dir / "metrics.json").write_text(json.dumps(metrics_json, indent=2) + "\n", encoding="utf-8")
@@ -335,6 +343,8 @@ def main() -> None:
     trace["baseline_frt_minutes"] = baseline["frt_minutes"].round(2).to_numpy()
     trace["salesforce_frt_minutes"] = salesforce["frt_minutes"].round(2).to_numpy()
     trace["salesforce_deflected"] = salesforce["deflected"].to_numpy()
+    trace["salesforce_intent"] = salesforce["intent"].to_numpy()
+    trace["salesforce_confidence"] = salesforce["confidence"].to_numpy()
     trace["salesforce_agent"] = salesforce["agent"].to_numpy()
     trace.to_csv(out_dir / "requests_scored.csv", index=False)
 

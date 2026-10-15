@@ -1,0 +1,212 @@
+{
+  "generated_by": "sim/eval_assistant.py",
+  "dataset": {
+    "utterances": 140,
+    "in_scope": 120,
+    "out_of_scope": 20,
+    "per_intent_support": {
+      "Order Status": {
+        "precision": 1.0,
+        "recall": 0.95,
+        "f1": 0.9744,
+        "support": 20
+      },
+      "Return": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 20
+      },
+      "Warranty": {
+        "precision": 1.0,
+        "recall": 0.95,
+        "f1": 0.9744,
+        "support": 20
+      },
+      "Shipping": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 20
+      },
+      "Sizing": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "support": 20
+      },
+      "Store Hours": {
+        "precision": 0.9524,
+        "recall": 1.0,
+        "f1": 0.9756,
+        "support": 20
+      },
+      "escalate": {
+        "precision": 0.9048,
+        "recall": 0.95,
+        "f1": 0.9268,
+        "support": 20
+      }
+    }
+  },
+  "chosen_threshold": 0.55,
+  "chosen_reason": "threshold 0.55 maximises labelled-set accuracy (97.9%) while keeping escalation precision at 90.5%; higher thresholds start escalating in-scope requests, lower thresholds give no accuracy gain.",
+  "overall_accuracy": 0.9786,
+  "macro_f1": 0.9787,
+  "escalation_precision": 0.9048,
+  "escalation_recall": 0.95,
+  "deflection_rate_pct": 85.0,
+  "per_intent": {
+    "Order Status": {
+      "precision": 1.0,
+      "recall": 0.95,
+      "f1": 0.9744,
+      "support": 20
+    },
+    "Return": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 20
+    },
+    "Warranty": {
+      "precision": 1.0,
+      "recall": 0.95,
+      "f1": 0.9744,
+      "support": 20
+    },
+    "Shipping": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 20
+    },
+    "Sizing": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 20
+    },
+    "Store Hours": {
+      "precision": 0.9524,
+      "recall": 1.0,
+      "f1": 0.9756,
+      "support": 20
+    },
+    "escalate": {
+      "precision": 0.9048,
+      "recall": 0.95,
+      "f1": 0.9268,
+      "support": 20
+    }
+  },
+  "threshold_sweep": [
+    {
+      "threshold": 0.4,
+      "accuracy": 0.9714,
+      "macro_f1": 0.971,
+      "escalation_precision": 0.9444,
+      "deflection_rate_pct": 87.14
+    },
+    {
+      "threshold": 0.45,
+      "accuracy": 0.9714,
+      "macro_f1": 0.971,
+      "escalation_precision": 0.9444,
+      "deflection_rate_pct": 87.14
+    },
+    {
+      "threshold": 0.5,
+      "accuracy": 0.9714,
+      "macro_f1": 0.971,
+      "escalation_precision": 0.9444,
+      "deflection_rate_pct": 87.14
+    },
+    {
+      "threshold": 0.55,
+      "accuracy": 0.9786,
+      "macro_f1": 0.9787,
+      "escalation_precision": 0.9048,
+      "deflection_rate_pct": 85.0
+    },
+    {
+      "threshold": 0.6,
+      "accuracy": 0.9571,
+      "macro_f1": 0.9581,
+      "escalation_precision": 0.7917,
+      "deflection_rate_pct": 82.86
+    },
+    {
+      "threshold": 0.65,
+      "accuracy": 0.8857,
+      "macro_f1": 0.8961,
+      "escalation_precision": 0.5556,
+      "deflection_rate_pct": 74.29
+    }
+  ],
+  "confusion_matrix": {
+    "Order Status": {
+      "Order Status": 19,
+      "Return": 0,
+      "Warranty": 0,
+      "Shipping": 0,
+      "Sizing": 0,
+      "Store Hours": 0,
+      "escalate": 1
+    },
+    "Return": {
+      "Order Status": 0,
+      "Return": 20,
+      "Warranty": 0,
+      "Shipping": 0,
+      "Sizing": 0,
+      "Store Hours": 0,
+      "escalate": 0
+    },
+    "Warranty": {
+      "Order Status": 0,
+      "Return": 0,
+      "Warranty": 19,
+      "Shipping": 0,
+      "Sizing": 0,
+      "Store Hours": 0,
+      "escalate": 1
+    },
+    "Shipping": {
+      "Order Status": 0,
+      "Return": 0,
+      "Warranty": 0,
+      "Shipping": 20,
+      "Sizing": 0,
+      "Store Hours": 0,
+      "escalate": 0
+    },
+    "Sizing": {
+      "Order Status": 0,
+      "Return": 0,
+      "Warranty": 0,
+      "Shipping": 0,
+      "Sizing": 20,
+      "Store Hours": 0,
+      "escalate": 0
+    },
+    "Store Hours": {
+      "Order Status": 0,
+      "Return": 0,
+      "Warranty": 0,
+      "Shipping": 0,
+      "Sizing": 0,
+      "Store Hours": 20,
+      "escalate": 0
+    },
+    "escalate": {
+      "Order Status": 0,
+      "Return": 0,
+      "Warranty": 0,
+      "Shipping": 0,
+      "Sizing": 0,
+      "Store Hours": 1,
+      "escalate": 19
+    }
+  }
+}

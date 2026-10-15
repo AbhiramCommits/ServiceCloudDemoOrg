@@ -156,6 +156,10 @@
         <apexClass>SupportRequestTriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>DeflectionAgentActions</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <tabSettings>
         <tab>Support_Request__c</tab>
         <visibility>Visible</visibility>

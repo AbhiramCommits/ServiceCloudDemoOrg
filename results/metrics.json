@@ -17,35 +17,35 @@
       "unit": "minutes",
       "direction": "lower",
       "baseline": 575.83,
-      "salesforce": 89.0,
-      "delta": -486.83,
-      "pct_delta": -84.54
+      "salesforce": 80.54,
+      "delta": -495.29,
+      "pct_delta": -86.01
     },
     "first_response_minutes_p90": {
       "label": "First response time (p90)",
       "unit": "minutes",
       "direction": "lower",
       "baseline": 1293.65,
-      "salesforce": 241.66,
-      "delta": -1051.99,
-      "pct_delta": -81.32
+      "salesforce": 241.24,
+      "delta": -1052.41,
+      "pct_delta": -81.35
     },
     "sla_compliance_pct": {
       "label": "SLA compliance",
       "unit": "percent",
       "direction": "higher",
       "baseline": 43.15,
-      "salesforce": 96.55,
-      "delta": 53.4,
-      "pct_delta": 123.75
+      "salesforce": 97.3,
+      "delta": 54.15,
+      "pct_delta": 125.49
     },
     "deflection_rate_pct": {
       "label": "Deflection rate",
       "unit": "percent",
       "direction": "higher",
       "baseline": 0.0,
-      "salesforce": 49.95,
-      "delta": 49.95,
+      "salesforce": 56.95,
+      "delta": 56.95,
       "pct_delta": 0.0
     },
     "cases_per_agent_per_day": {
@@ -53,38 +53,38 @@
       "unit": "cases",
       "direction": "lower",
       "baseline": 15.87,
-      "salesforce": 7.94,
-      "delta": -7.93,
-      "pct_delta": -49.97
+      "salesforce": 6.83,
+      "delta": -9.04,
+      "pct_delta": -56.96
     },
     "backlog_age_hours": {
       "label": "Backlog age",
       "unit": "hours",
       "direction": "lower",
       "baseline": 33.81,
-      "salesforce": 3.35,
-      "delta": -30.46,
-      "pct_delta": -90.09
+      "salesforce": 3.1,
+      "delta": -30.71,
+      "pct_delta": -90.83
     }
   },
   "diagnostics": {
     "agent_load_gini": {
       "baseline": 0.000667,
-      "salesforce": 0.000833
+      "salesforce": 0.001742
     },
     "human_handled_requests": {
       "baseline": 4000,
-      "salesforce": 2002
+      "salesforce": 1722
     },
     "deflected_requests": {
       "baseline": 0,
-      "salesforce": 1998
+      "salesforce": 2278
     },
     "sla_breaches": {
       "baseline": 2274,
-      "salesforce": 138
+      "salesforce": 108
     },
-    "agent_hours_freed_per_month": 518.38,
+    "agent_hours_freed_per_month": 592.58,
     "baseline_handling_minutes_per_human_request": 15.1816
   },
   "deflection_by_topic": [
@@ -92,47 +92,55 @@
       "topic": "Other",
       "total_requests": 1575,
       "deflected_requests": 0,
+      "avg_confidence": 0.1459,
       "deflection_rate_pct": 0.0
     },
     {
       "topic": "Order Status",
       "total_requests": 589,
-      "deflected_requests": 497,
-      "deflection_rate_pct": 84.38
+      "deflected_requests": 500,
+      "avg_confidence": 0.771,
+      "deflection_rate_pct": 84.89
     },
     {
       "topic": "Return",
       "total_requests": 474,
-      "deflected_requests": 379,
-      "deflection_rate_pct": 79.96
+      "deflected_requests": 474,
+      "avg_confidence": 0.7732,
+      "deflection_rate_pct": 100.0
     },
     {
       "topic": "Shipping",
       "total_requests": 404,
-      "deflected_requests": 340,
-      "deflection_rate_pct": 84.16
+      "deflected_requests": 404,
+      "avg_confidence": 0.8236,
+      "deflection_rate_pct": 100.0
     },
     {
       "topic": "Sizing",
       "total_requests": 345,
-      "deflected_requests": 268,
-      "deflection_rate_pct": 77.68
+      "deflected_requests": 345,
+      "avg_confidence": 0.7712,
+      "deflection_rate_pct": 100.0
     },
     {
       "topic": "Store Hours",
       "total_requests": 308,
-      "deflected_requests": 284,
-      "deflection_rate_pct": 92.21
+      "deflected_requests": 308,
+      "avg_confidence": 0.7979,
+      "deflection_rate_pct": 100.0
     },
     {
       "topic": "Warranty",
       "total_requests": 305,
-      "deflected_requests": 230,
-      "deflection_rate_pct": 75.41
+      "deflected_requests": 247,
+      "avg_confidence": 0.8701,
+      "deflection_rate_pct": 80.98
     }
   ],
   "assistant": {
-    "source": "provisional (see step 4)",
-    "threshold": null
+    "source": "sim/assistant.py (intent router over the six P3 topics)",
+    "threshold": 0.55,
+    "deflection_rate_pct": 56.95
   }
 }
