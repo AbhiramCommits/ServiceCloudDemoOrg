@@ -1,9 +1,11 @@
 # Deflection Agent — Invocable Actions
 
-The six actions the agent can take. In a live org each is an `@InvocableMethod` in
-`force-app/main/default/classes/DeflectionAgentActions.cls`, so it can be wired into an Agentforce
-action, a Flow, or a `@wire`-driven Lightning component without further Apex. The local harness
-(`sim/assistant.py`) implements the same actions against `data/orders.csv`.
+The six actions the agent can take. Apex allows one `@InvocableMethod` per class, so each action has
+its own thin wrapper class (`CheckOrderStatusAction`, `StartReturnAction`, ...) that delegates to the
+shared logic in `DeflectionAgentActions.cls`. They can be wired into a Flow or a `@wire`-driven
+component today; an Agentforce action would use the same entry points, but Agentforce/Einstein is not
+provisioned in the Developer org used for this build. The local harness (`sim/assistant.py`)
+implements the same actions against `data/orders.csv`.
 
 | Action | Apex entry point | Backed by | Returns |
 | --- | --- | --- | --- |

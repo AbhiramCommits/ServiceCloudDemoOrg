@@ -2,8 +2,9 @@
 
 An end-to-end **Solution Engineering proof of concept** for a fictional mid-market customer,
 **Northwind Outfitters**. It takes the customer's stated support problem through the full SE loop —
-discovery brief → deployable Salesforce org metadata → Apex/SOQL → an Agentforce-style case-deflection
-assistant → a five-minute demo with quantified before/after results. It ships two things that stay in
+discovery brief → deployable Salesforce org metadata → Apex/SOQL → a case-deflection assistant
+(simulated in `sim/` — Agentforce is not provisioned in the Developer org) → a five-minute demo with
+quantified before/after results. It ships two things that stay in
 lockstep: **real Salesforce DX source-format metadata** you can deploy to an org, and a **Python
 simulation harness** that implements the same business rules against synthetic data so every number in
 this README is produced by actually running code in this repo, with no org and no internet required.
@@ -229,9 +230,19 @@ Honest scope of what this is and is not:
 - **The data is synthetic.** `data/generate_data.py` produces a Northwind-scale dataset from a fixed
   seed. It is realistic in shape (six recurring topics ≈ 61% of volume, realistic order/LTV
   distribution) but it is not Northwind's real traffic.
-- **The org is not deployed.** The SFDX metadata is written to spec and validated for XML
-  well-formedness and Apex hygiene by tests, but it has not been deployed or executed against a live
-  org in this build. `sf project deploy start` is untested here because there is no Dev Hub.
+- **What actually ran in Salesforce.** The metadata deploys cleanly to a Developer Edition
+  (51 components, 0 errors) and the Apex suite passes there: 17/17 tests, 86-100% coverage per class
+  (`results/apex/`). Priority scoring and warranty logic were executed in the org and match `sim/`
+  exactly (`results/org_vs_sim.md`).
+- **What did not run in Salesforce.** The org's release (Winter '27 Patch 8.6) never publishes
+  API-created custom fields, so seeded records, the intake trigger, the Flows and the deflection
+  actions could not be exercised end to end (`results/org_blocker.md`). The demo is driven by `sim/`,
+  not by the org.
+- **Agentforce and Einstein are not available here.** The Developer org exposes no `GenAiFunction`,
+  `GenAiPlugin`, `GenAiPlanner` or Prompt Builder (`PromptTemplate`) entities, so this build has no
+  Salesforce agent, prompt, or LLM. The "assistant" is the Python keyword/token-overlap router in
+  `sim/assistant.py`. The org-side equivalents are the Flows and the `@InvocableMethod` wrapper
+  classes (one action per class); they are deployed but were not run against data.
 - **The assistant is a keyword/token-overlap intent router, not an LLM.** It is grounded (order status
   and warranty read `orders.csv`; policy answers come from approved content) and it escalates instead
   of guessing, but real language-model grounding and an Agentforce trust layer are out of scope. Its
