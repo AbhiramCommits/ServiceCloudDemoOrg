@@ -32,7 +32,7 @@ public with sharing class WarrantyService {
             return false;
         }
         Date expiry = orderDate.addMonths(warrantyMonths);
-        return !requestDate.isAfter(expiry);
+        return requestDate <= expiry;
     }
 
     /**

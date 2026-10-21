@@ -16,5 +16,5 @@
     <enableFeeds>false</enableFeeds>
     <enableBulkApi>true</enableBulkApi>
     <enableSharing>true</enableSharing>
-    <enableStreamingApi>false</enableStreamingApi>
+    <enableStreamingApi>true</enableStreamingApi>
 </CustomObject>

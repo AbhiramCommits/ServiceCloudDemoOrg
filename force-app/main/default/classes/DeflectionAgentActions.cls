@@ -46,7 +46,6 @@ public with sharing class DeflectionAgentActions {
     // Actions
     // ------------------------------------------------------------------------------------------
 
-    @InvocableMethod(label='Check Order Status' description='Grounded order-status answer for a customer email.')
     public static List<AgentResponse> checkOrderStatus(List<AgentRequest> requests) {
         Map<String, Order_Record__c> orders = latestOrdersByEmail(collectEmails(requests));
         List<AgentResponse> responses = new List<AgentResponse>();
@@ -66,7 +65,6 @@ public with sharing class DeflectionAgentActions {
         return responses;
     }
 
-    @InvocableMethod(label='Start Return' description='Open a return for the customer''s most recent order.')
     public static List<AgentResponse> startReturn(List<AgentRequest> requests) {
         Map<String, Order_Record__c> orders = latestOrdersByEmail(collectEmails(requests));
         List<AgentResponse> responses = new List<AgentResponse>();
@@ -82,25 +80,21 @@ public with sharing class DeflectionAgentActions {
         return responses;
     }
 
-    @InvocableMethod(label='Get Sizing Guide' description='Return approved sizing guidance.')
     public static List<AgentResponse> getSizingGuide(List<AgentRequest> requests) {
         return articleBackedResponses(requests, 'GetSizingGuide', 'Sizing',
             'Our gear runs true to size. Between sizes, size up for footwear and down for insulated jackets.');
     }
 
-    @InvocableMethod(label='Get Shipping Policy' description='Return approved shipping options and timeframes.')
     public static List<AgentResponse> getShippingPolicy(List<AgentRequest> requests) {
         return articleBackedResponses(requests, 'GetShippingPolicy', 'Shipping',
             'Standard shipping is free over $75 and takes 3-5 business days; express is 1-2 days.');
     }
 
-    @InvocableMethod(label='Get Store Hours' description='Return store hours and locator guidance.')
     public static List<AgentResponse> getStoreHours(List<AgentRequest> requests) {
         return articleBackedResponses(requests, 'GetStoreHours', 'Store Hours',
             'Our Bozeman flagship is open Monday-Saturday 9am-7pm and Sunday 10am-6pm.');
     }
 
-    @InvocableMethod(label='Check Warranty' description='Grounded warranty verdict from order history.')
     public static List<AgentResponse> checkWarranty(List<AgentRequest> requests) {
         Map<String, Order_Record__c> orders = latestOrdersByEmail(collectEmails(requests));
         List<AgentResponse> responses = new List<AgentResponse>();

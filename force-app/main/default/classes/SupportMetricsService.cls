@@ -82,20 +82,14 @@ public with sharing class SupportMetricsService {
      * M3 - percentage of responded requests whose first response beat SLA_Due__c.
      */
     public static Decimal slaCompliancePct(Date startDate, Date endDate) {
-        Integer responded = [
-            SELECT COUNT()
-            FROM Support_Request__c
-            WHERE First_Response_At__c != null
-            AND CreatedDate >= :startDate AND CreatedDate < :endDate
-        ];
-        Integer met = [
-            SELECT COUNT()
-            FROM Support_Request__c
-            WHERE First_Response_At__c != null
-            AND First_Response_At__c <= SLA_Due__c
-            AND CreatedDate >= :startDate AND CreatedDate < :endDate
-        ];
-        return pct(met, responded);
+        List<Support_Request__c> sample = firstResponseSample(startDate, endDate);
+        Integer met = 0;
+        for (Support_Request__c req : sample) {
+            if (req.SLA_Due__c != null && req.First_Response_At__c <= req.SLA_Due__c) {
+                met++;
+            }
+        }
+        return pct(met, sample.size());
     }
 
     /**

@@ -6,24 +6,29 @@
     <description>Record-triggered flow with a scheduled path that fires one hour after a Support_Request__c is created. If the request is already past SLA_Due__c with no First_Response_At__c and is not Resolved, it flags the record (Escalated__c = true) so it surfaces on the Support Console and in the backlog-age metric. Addresses P2 (SLA breaches go unnoticed) and P4 (no visibility into breach risk).</description>
     <interviewLabel>Case Escalation Alert-{!$Flow.CurrentDateTime}</interviewLabel>
     <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
         <object>Support_Request__c</object>
         <recordTriggerType>CreateAndUpdate</recordTriggerType>
         <triggerType>RecordAfterSave</triggerType>
-        <filterFormula>{!$Record.Status__c} != "Resolved"</filterFormula>
+        <filterFormula>TEXT({!$Record.Status__c}) != "Resolved"</filterFormula>
+        <scheduledPaths>
+            <name>Escalation_Check</name>
+            <label>Escalation Check</label>
+            <offsetNumber>1</offsetNumber>
+            <offsetUnit>Hours</offsetUnit>
+            <recordField>CreatedDate</recordField>
+            <timeSource>RecordField</timeSource>
+            <connector>
+                <targetReference>Is_Breached</targetReference>
+            </connector>
+        </scheduledPaths>
     </start>
-    <scheduledPaths>
-        <name>Escalation_Check</name>
-        <label>Escalation Check</label>
-        <offsetNumber>1</offsetNumber>
-        <offsetUnit>Hours</offsetUnit>
-        <timeSource>RecordCreate</timeSource>
-        <connector>
-            <targetReference>Is_Breached</targetReference>
-        </connector>
-    </scheduledPaths>
     <decisions>
         <name>Is_Breached</name>
         <label>Is SLA Breached Without Response</label>
+        <locationX>176</locationX>
+        <locationY>258</locationY>
         <defaultConnectorLabel>Not Breached</defaultConnectorLabel>
         <rules>
             <name>Breached</name>
@@ -45,7 +50,7 @@
             </conditions>
             <conditions>
                 <leftValueReference>$Record.Status__c</leftValueReference>
-                <operator>DoesNotEqual</operator>
+                <operator>NotEqualTo</operator>
                 <rightValue>
                     <stringValue>Resolved</stringValue>
                 </rightValue>
@@ -58,6 +63,8 @@
     <recordUpdates>
         <name>Flag_Escalated</name>
         <label>Flag Escalated</label>
+        <locationX>176</locationX>
+        <locationY>402</locationY>
         <inputReference>$Record</inputReference>
         <inputAssignments>
             <field>Escalated__c</field>

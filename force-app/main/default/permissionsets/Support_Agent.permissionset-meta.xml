@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <label>Support Agent</label>
-    <description>Grants the support team everything they need on Support Requests and read-only context on Orders and Deflection Articles. Order data is intentionally read-only and lifetime value is read-only so agents can act on priority without editing commercial data - the field-level access story Tom (IT) asked about during discovery. Also grants Apex class access used by the routing and warranty layers.</description>
+    <description>Grants agents access to Support Requests plus read-only order and article context, and Apex class access for routing, warranty, and metrics.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <objectPermissions>
         <object>Support_Request__c</object>
@@ -30,11 +30,6 @@
         <modifyAllRecords>false</modifyAllRecords>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <fieldPermissions>
-        <field>Support_Request__c.Customer_Email__c</field>
-        <editable>true</editable>
-        <readable>true</readable>
-    </fieldPermissions>
     <fieldPermissions>
         <field>Support_Request__c.Channel__c</field>
         <editable>true</editable>
@@ -76,11 +71,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <field>Support_Request__c.Status__c</field>
-        <editable>true</editable>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <field>Support_Request__c.Related_Order__c</field>
         <editable>true</editable>
         <readable>true</readable>
@@ -96,16 +86,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <field>Order_Record__c.Order_Date__c</field>
-        <editable>false</editable>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <field>Order_Record__c.Warranty_Months__c</field>
-        <editable>false</editable>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <field>Order_Record__c.Product_Family__c</field>
         <editable>false</editable>
         <readable>true</readable>
@@ -116,17 +96,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <field>Deflection_Article__c.Title__c</field>
-        <editable>false</editable>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <field>Deflection_Article__c.Body__c</field>
-        <editable>false</editable>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <field>Deflection_Article__c.Topic__c</field>
         <editable>false</editable>
         <readable>true</readable>
     </fieldPermissions>
@@ -158,6 +128,30 @@
     </classAccesses>
     <classAccesses>
         <apexClass>DeflectionAgentActions</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CheckOrderStatusAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>StartReturnAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>GetSizingGuideAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>GetShippingPolicyAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>GetStoreHoursAction</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>CheckWarrantyAction</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <tabSettings>

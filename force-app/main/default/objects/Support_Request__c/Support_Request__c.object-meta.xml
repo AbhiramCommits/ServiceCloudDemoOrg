@@ -17,5 +17,4 @@
     <enableBulkApi>true</enableBulkApi>
     <enableSharing>true</enableSharing>
     <enableStreamingApi>true</enableStreamingApi>
-    <replicateParentAccount>false</replicateParentAccount>
 </CustomObject>

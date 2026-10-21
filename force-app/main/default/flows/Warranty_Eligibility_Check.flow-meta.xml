@@ -5,6 +5,13 @@
     <label>Warranty Eligibility Check</label>
     <description>Auto-launched flow that evaluates whether a purchase is still inside Warranty_Months__c of Order_Date__c as of the request date, and returns an agent-friendly verdict. Called by the Warranty_Eligibility_Check action and the deflection assistant, and used to replace the manual store-admin lookup. Addresses P5 (entitlement/warranty eligibility checked manually). Date logic mirrors WarrantyService.isUnderWarranty and sim/warranty.py, including the inclusive anniversary boundary.</description>
     <interviewLabel>Warranty Eligibility Check-{!$Flow.CurrentDateTime}</interviewLabel>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Set_Outputs</targetReference>
+        </connector>
+    </start>
     <formulas>
         <name>formIsUnderWarranty</name>
         <dataType>Boolean</dataType>
@@ -18,6 +25,8 @@
     <assignments>
         <name>Set_Outputs</name>
         <label>Set Outputs</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
         <assignmentItems>
             <assignToReference>varIsUnderWarranty</assignToReference>
             <operator>Assign</operator>

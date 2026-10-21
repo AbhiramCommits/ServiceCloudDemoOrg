@@ -1,7 +1,9 @@
 {
   "orgName": "Northwind Outfitters Demo",
   "edition": "Developer",
-  "features": ["ServiceCloud", "Flow"],
+  "features": [
+    "ServiceCloud"
+  ],
   "settings": {
     "caseSettings": {
       "enableCaseFeed": true,

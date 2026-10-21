@@ -6,6 +6,8 @@
     <description>Record-triggered before-save triage for Support_Request__c. Computes Priority_Score__c from customer lifetime value (Order_Record__c.Lifetime_Value__c), intake channel and topic; maps the score to the priority band and stamps SLA_Due__c from the priority-based SLA matrix; relates the request to the customer's order; sets Status__c = Triaged. Addresses P2 (no priority or SLA routing) and P1 (single record with order context). Scoring constants mirror PriorityRouter.cls and sim/config.py.</description>
     <interviewLabel>Support Request Triage-{!$Flow.CurrentDateTime}</interviewLabel>
     <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
         <object>Support_Request__c</object>
         <recordTriggerType>Create</recordTriggerType>
         <triggerType>RecordBeforeSave</triggerType>
@@ -23,13 +25,13 @@
         <name>formChannelPoints</name>
         <dataType>Number</dataType>
         <scale>0</scale>
-        <expression>IF({!$Record.Channel__c} = "Phone", 20, IF({!$Record.Channel__c} = "Chat", 15, IF({!$Record.Channel__c} = "Web", 10, IF({!$Record.Channel__c} = "Email", 5, 0))))</expression>
+        <expression>IF(TEXT({!$Record.Channel__c}) = "Phone", 20, IF(TEXT({!$Record.Channel__c}) = "Chat", 15, IF(TEXT({!$Record.Channel__c}) = "Web", 10, IF(TEXT({!$Record.Channel__c}) = "Email", 5, 0))))</expression>
     </formulas>
     <formulas>
         <name>formTopicPoints</name>
         <dataType>Number</dataType>
         <scale>0</scale>
-        <expression>IF({!$Record.Topic__c} = "Warranty", 25, IF({!$Record.Topic__c} = "Return", 20, IF({!$Record.Topic__c} = "Order Status", 15, IF({!$Record.Topic__c} = "Shipping", 10, IF({!$Record.Topic__c} = "Other", 8, IF({!$Record.Topic__c} = "Sizing", 5, 0))))))</expression>
+        <expression>IF(TEXT({!$Record.Topic__c}) = "Warranty", 25, IF(TEXT({!$Record.Topic__c}) = "Return", 20, IF(TEXT({!$Record.Topic__c}) = "Order Status", 15, IF(TEXT({!$Record.Topic__c}) = "Shipping", 10, IF(TEXT({!$Record.Topic__c}) = "Other", 8, IF(TEXT({!$Record.Topic__c}) = "Sizing", 5, 0))))))</expression>
     </formulas>
     <formulas>
         <name>formPriorityScore</name>
@@ -56,6 +58,8 @@
     <recordLookups>
         <name>Get_Lifetime_Value</name>
         <label>Get Lifetime Value</label>
+        <locationX>176</locationX>
+        <locationY>158</locationY>
         <object>Order_Record__c</object>
         <getFirstRecordOnly>true</getFirstRecordOnly>
         <filterLogic>and</filterLogic>
@@ -76,6 +80,8 @@
     <assignments>
         <name>Set_Triage_Fields</name>
         <label>Set Triage Fields</label>
+        <locationX>176</locationX>
+        <locationY>302</locationY>
         <assignmentItems>
             <assignToReference>$Record.Priority_Score__c</assignToReference>
             <operator>Assign</operator>
