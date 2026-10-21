@@ -115,6 +115,19 @@ to reproduce any simulated number.
 
 ## What I learned
 
-- TODO
-- TODO
-- TODO
+- "Deploy succeeded" doesn't mean the org changed. Custom fields deployed through the API never showed
+  up in SOQL on this release, while the same field created in Setup worked immediately. I check the
+  org now, not the CLI status.
+- Salesforce validates more than the XML. An Email field rejects a length, Flow elements need canvas
+  coordinates, and required fields can't be marked read-only in a permission set.
+- Flow metadata is picky about structure. A scheduled path outside `<start>`, a picklist compared
+  without `TEXT()`, or a misspelled enum fails at deploy, not in the builder.
+- Apex allows one `@InvocableMethod` per class, so the six agent actions became six small wrapper
+  classes around the shared logic.
+- Deploys are all-or-nothing. One bad permission set entry rolled back fifty good components, and the
+  error list looked far worse than the real problem.
+- Write tests against behaviour, not expectations. Two of mine failed because I assumed the trigger
+  recalculates the priority score on update, and because I forgot `CreatedDate` is UTC while
+  `Date.today()` is local.
+- The harness was the only thing I could run end to end. Matching it against the org's Apex on the same
+  inputs was the check that told me the rules were right.
