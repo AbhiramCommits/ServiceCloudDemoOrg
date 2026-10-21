@@ -1,0 +1,57 @@
+{
+  "outcome": "Passed",
+  "testsRan": 17,
+  "passing": 17,
+  "failing": 0,
+  "orgId": "00Dak00001LqSOWEA3",
+  "coverage": [
+    {
+      "name": "WarrantyService",
+      "coveredPercent": 95
+    },
+    {
+      "name": "SupportMetricsService",
+      "coveredPercent": 100
+    },
+    {
+      "name": "GetShippingPolicyAction",
+      "coveredPercent": 100
+    },
+    {
+      "name": "GetStoreHoursAction",
+      "coveredPercent": 100
+    },
+    {
+      "name": "GetSizingGuideAction",
+      "coveredPercent": 100
+    },
+    {
+      "name": "SupportRequestTriggerHandler",
+      "coveredPercent": 93
+    },
+    {
+      "name": "StartReturnAction",
+      "coveredPercent": 100
+    },
+    {
+      "name": "DeflectionAgentActions",
+      "coveredPercent": 98
+    },
+    {
+      "name": "CheckWarrantyAction",
+      "coveredPercent": 100
+    },
+    {
+      "name": "CheckOrderStatusAction",
+      "coveredPercent": 100
+    },
+    {
+      "name": "PriorityRouter",
+      "coveredPercent": 86
+    },
+    {
+      "name": "SupportRequestTrigger",
+      "coveredPercent": 100
+    }
+  ]
+}
